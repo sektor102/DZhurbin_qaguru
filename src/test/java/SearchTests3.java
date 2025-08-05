@@ -8,7 +8,7 @@ import static java.lang.Thread.sleep;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 
-public class SearchTests {
+public class SearchTests3 {
     @BeforeAll
     static void setUp() {
         ChromeOptions options = new ChromeOptions();
