@@ -9,24 +9,21 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 
 public class SearchTests3 {
-    @BeforeAll
-    static void setUp() {
+    @Test
+    void successfulSearchTest() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("user-data-dir=C:\\Users\\dante\\AppData\\Local\\Google\\Chrome\\User Data");
-        options.addArguments("profile-directory=Profile 3");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--start-maximized");
-
+        options.addArguments(
+                "--disable-blink-features=AutomationControlled",
+                "--disable-infobars",
+                "--disable-notifications",
+                "--start-maximized",
+                "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        );
         Configuration.browserCapabilities = options;
         Configuration.headless = false;
-    }
 
-    @Test
-    void successfulSearchTest() throws InterruptedException {
-        open("https://www.google.com/");
-        sleep(500);
-        $("[name=q]").setValue("selenide").pressEnter();
-        System.out.println("Открыта страница, ищем поле2...");
-        $("#search").shouldHave(text("https://selenide.org"));
+        open("https://duckduckgo.com");
+        $("[id=searchbox_input]").setValue("selenide").pressEnter();
+        $("[data-nrn=result]").shouldHave(text("https://selenide.org"));
     }
 }
